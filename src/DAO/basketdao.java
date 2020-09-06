@@ -13,7 +13,7 @@ import DTO.basketdto;
 public class basketdao {
 	private Connection conn = null; // oracle 접속하기 위한 연결 컨넥션
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String url = "jdbc:oracle:thin:@localhost:1521:olcl";
 	private String id = "system";
 	private String pwd = "1111";
 
@@ -62,7 +62,7 @@ public class basketdao {
 				rs = st.executeQuery(sql);
 				while (rs.next()) {
 					basketdto btemp = new basketdto();
-					btemp.setUid(rs.getString("uid"));
+					btemp.setUid(rs.getString("cid"));
 					btemp.setTid(rs.getString("tid"));
 					btemp.setCnt(rs.getInt("cnt"));
 					blist.add(btemp);
@@ -80,5 +80,48 @@ public class basketdao {
 			}
 		}
 		return blist;
+	}
+	public void updatebasek(int cnt , String id) {
+		String sql="update basket set cnt=? where cid=?";
+		PreparedStatement ppst = null;
+		if(conn() != null) {
+			try {
+				ppst =conn.prepareStatement(sql);
+				ppst.setInt(1, cnt);
+				ppst.setString(2, id);
+				ppst.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				try {
+					if(ppst != null) ppst.close();
+					if(conn != null) ppst.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	public void deletebasket(String id) {
+		String sql="delete from basket where cid=?";
+		PreparedStatement ppst = null;
+		if(conn() != null) {
+			try {
+				ppst = conn.prepareStatement(sql);
+				ppst.setString(1, id);
+				ppst.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				try {
+					if(ppst != null) ppst.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+		
+		
 	}
 }

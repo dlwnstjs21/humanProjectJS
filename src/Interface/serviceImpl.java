@@ -16,8 +16,7 @@ public class serviceImpl implements service {
 	private consumerdao uudao = new consumerdao();
 
 	@Override
-	public void joinuser() {
-		// TODO Auto-generated method stub
+	public void joinuser() {//회원가입
 		int no = -1;
 		String id = null;
 		String name = null;
@@ -46,7 +45,7 @@ public class serviceImpl implements service {
 	}
 
 	@Override
-	public void treelist() {
+	public void treelist() {//나무 리스트
 		// TODO Auto-generated method stub
 		ArrayList<treedto> list = ttdao.selectAll();
 		System.out.println("나무목록입니다");
@@ -62,7 +61,7 @@ public class serviceImpl implements service {
 	}
 
 	@Override
-	public void basketbuy() {
+	public void basketbuy() {//구매하기
 		// TODO Auto-generated method stub
 		treelist();
 		String userid = null;
@@ -92,7 +91,7 @@ public class serviceImpl implements service {
 
 	}
 	@Override
-	public void bbuylist() {
+	public void bbuylist() {//구매한목록보기
 		ArrayList<basketdto> list = bbdao.basketlist();
 		System.out.println("구매목록입니다.");
 		for (int i = 0; i < list.size(); i++) {
@@ -103,5 +102,75 @@ public class serviceImpl implements service {
 			System.out.println(" 수    량  : " + bbbdto.getCnt());
 		}
 	}
+
+	@Override
+	public void uptree() {
+		treelist();
+		String treeid = null;
+		int tcnt = -1;
+		Scanner in = new Scanner(System.in);
+		treedto tdto = new treedto();
+		System.out.println("수정할 나무 id 를 입력해주세요.");
+		treeid =in.nextLine();
+		tdto.setTid(treeid);
+		System.out.println("나무 수량을 입력해주세요");
+		tcnt =in.nextInt();
+		in.nextLine();
+		tdto.setCnt(tcnt);
+		
+		ttdao.updatetreecnt(tcnt, treeid);
+		System.out.println("수정이 완료되었습니다.");
+		
+		
+		
+		
+		
+	}
+
+	@Override
+	public void deltree() {
+		treelist();
+		String treeid = null;
+		Scanner in = new Scanner(System.in);
+		treedto tdto = new treedto();
+		System.out.println("삭제할 나무 id 를 입력해주세요.");
+		treeid =in.nextLine();
+		tdto.setTid(treeid);
+		
+		ttdao.deletetree(treeid);
+		System.out.println("삭제가 완료되었습니다.");
+		
+	}
+
+	@Override
+	public void conlist() {
+		ArrayList<consumerdto> clist = uudao.selectAllconsumer();
+		System.out.println("회원 목록입니다.");
+		for (int i = 0; i < clist.size(); i++) {
+			consumerdto ccdto = new consumerdto();
+			ccdto = clist.get(i);
+			System.out.println(" 회원 id : " + ccdto.getUid());
+			System.out.println(" 회원 이름: " + ccdto.getUname());
+			System.out.println(" 주   소   : " + ccdto.getAddr());
+		}		
+	}
+
+	@Override
+	public void stocktree() {
+		ArrayList<treedto> list = ttdao.selectAll();
+		System.out.println("재고 목록 입니다.");
+		treelist();
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getCnt()==0) {
+				treedto tempdto = new treedto();
+				tempdto = list.get(i);
+				System.out.println("현재 재고가 0인 물품 : 제품id :"+tempdto.getTid()+"제품 이름:"+tempdto.getTname());
+			}else {
+				System.out.println("재고가 0개인 제품이 없습니다.");
+			}
+		}
+		
+	}
+
 
 }

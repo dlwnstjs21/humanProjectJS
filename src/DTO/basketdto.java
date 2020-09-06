@@ -3,7 +3,7 @@ package DTO;
 public class basketdto {
 	
 	private String tid;
-	private String uid;
+	private String cid;
 	private int cnt;
 	public String getTid() {
 		return tid;
@@ -12,10 +12,10 @@ public class basketdto {
 		this.tid = tid;
 	}
 	public String getUid() {
-		return uid;
+		return cid;
 	}
 	public void setUid(String uid) {
-		this.uid = uid;
+		this.cid = uid;
 	}
 	public int getCnt() {
 		return cnt;

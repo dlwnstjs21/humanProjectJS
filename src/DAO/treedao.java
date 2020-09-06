@@ -12,7 +12,7 @@ import DTO.treedto;
 public class treedao {
 	private Connection conn = null; // oracle 접속하기 위한 연결 컨넥션
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String url = "jdbc:oracle:thin:@localhost:1521:olcl";
 	private String id = "system";
 	private String pwd = "1111";
 
@@ -46,11 +46,12 @@ public class treedao {
 					temp.setCnt(rs.getInt("cnt"));
 					tlist.add(temp);
 				}
-				for(int i=0; i<tlist.size(); i++) {
-					if(tlist.get(i).getCnt()==0) {
-						System.out.println(tlist.get(i).getTname()+"의 재고가 없습니다.");
-					}
-				}
+				return tlist;
+			//	for(int i=0; i<tlist.size(); i++) {
+				//	if(tlist.get(i).getCnt()==0) {
+					//	System.out.println(tlist.get(i).getTname()+"의 재고가 없습니다.");
+				//	}
+			//	}
 			} catch (Exception e) {
 				// TODO: handle exception
 			}finally {
@@ -62,30 +63,30 @@ public class treedao {
 				}
 			}
 		}
-		return tlist;
+		return null;
 		
 	}
 	
-	public void inserttree(treedto tdto) {//나무 등록하기
-		String sql ="insert into tree values(?,?,?,?)";
+	public void inserttree(String id,String name,String info,int cnt) {//나무 등록하기
+		String sql ="insert into tree values (?,?,?,?)";
 		PreparedStatement ppst = null;
-		if(conn != null) {
+		if(conn() != null) {
 			try {
 				ppst = conn.prepareStatement(sql);
-				ppst.setString(1, tdto.getTid());
-				ppst.setString(2, tdto.getTname());
-				ppst.setString(3, tdto.getInfo());
-				ppst.setInt(4, tdto.getCnt());
+				ppst.setString(1, id);
+				ppst.setString(2, name);
+				ppst.setString(3, info);
+				ppst.setInt(4, cnt);
 				ppst.executeUpdate();
 				
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.getStackTrace();
 			}finally {
 				try {
 					if(ppst != null) ppst.close();
 					if(conn != null) conn.close();
 				} catch (Exception e2) {
-					e2.printStackTrace();
 				}
 			}
 		}
@@ -94,7 +95,7 @@ public class treedao {
 	public void  deletetree(String id) {//나무 없애기
 		String sql = "delete from tree where tid=?";
 		PreparedStatement ppst = null;
-		if(conn != null) {
+		if(conn() != null) {
 			try {
 				ppst = conn.prepareStatement(sql);
 				ppst.setString(1, id);
@@ -106,19 +107,19 @@ public class treedao {
 					if(ppst != null) ppst.close();
 					if(conn != null) conn.close();
 				} catch (Exception e2) {
-					e2.printStackTrace();
 				}
 			}
 		}
 	}
 	public void updatetreecnt(int cnt,String id) {//나무 수량 수정
-		String sql="update tree set cnt=-? wher id=?";
+		String sql="update tree set cnt=cnt-? where tid=?";
 		PreparedStatement ppst =null;
-		if(conn != null) {
+		if(conn() != null) {
 			try {
 				ppst = conn.prepareStatement(sql);
 				ppst.setInt(1, cnt);
-				ppst.setString(1 ,id );
+				ppst.setString(2 , id);
+				ppst.executeUpdate();
 			} catch (Exception e) {
 				// TODO: handle exception
 			}finally {
@@ -126,7 +127,6 @@ public class treedao {
 					if(ppst != null)ppst.close();
 					if(conn != null)conn.close();
 				} catch (Exception e2) {
-					e2.printStackTrace();
 				}
 			}
 		}

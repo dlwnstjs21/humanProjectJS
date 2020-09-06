@@ -11,39 +11,41 @@ public class shop {
 		int no =-1;
 		while(true) {
 			mene();
-			System.out.println("번호를 고르세요");
 			no =in.nextInt();
 			in.nextLine();
 			
 			switch(no) {
-			case 1: join(); break;
-			case 2: list(); break;
-			case 3: buy(); break;
-			case 4: buylist(); break;
+			case 1: join();
+			case 2: treelist();
+			case 3: buy();
+			case 4: buybasket();
 			default : break;
 			}
 		}
-
 	}
-	private void join() {
-		sv.joinuser();
-	}
-	private void list() {
-		sv.treelist();
-	}
-	private void buy() {
-		sv.basketbuy();
-	}
-	private void buylist() {
+	private void buybasket() {
+		// TODO Auto-generated method stub
 		sv.bbuylist();
 	}
+	private void buy() {
+		// TODO Auto-generated method stub
+		sv.basketbuy();
+	}
+	private void treelist() {
+		// TODO Auto-generated method stub
+		sv.treelist();
+	}
+	private void join() {
+		// TODO Auto-generated method stub
+		sv.joinuser();
+	}
 	private void mene() {
-		System.out.println("---tree---");
+		System.out.println("---고객용---");
 		System.out.println("1.회원가입");
-		System.out.println("2.나무 보기");
-		System.out.println("3.구매하기");
-		System.out.println("4.구매목록");
-		System.out.println("5. 종   료");
+		System.out.println("2.나무목록");
+		System.out.println("3.구매하기 ");
+		System.out.println("4.장바구니 ");
+		System.out.println("5.종     료  ");
 		// TODO Auto-generated method stub
 		
 	}

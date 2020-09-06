@@ -1,14 +1,14 @@
 package DTO;
 
 public class consumerdto {
-	private String uid;
+	private String cid;
 	private String uname;
 	private String addr;
 	public String getUid() {
-		return uid;
+		return cid;
 	}
 	public void setUid(String uid) {
-		this.uid = uid;
+		this.cid = uid;
 	}
 	public String getUname() {
 		return uname;

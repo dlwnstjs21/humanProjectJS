@@ -26,20 +26,19 @@ public class jtest {
 		}
 	}
 	@Test 
-	public void inserttree() {
-		treedto m = new treedto();
-		m.setTid("a");
-		m.setTname("aaa");
-		m.setInfo("aaaa");
-		m.setCnt(2);
-		tdao.inserttree(m);
+	public void insert() {
+		tdao.inserttree("1", "자작나무", "자자작", 20);
 		
 	}
+	@Test
 	public void updatecnt() {
-		tdao.updatetreecnt(2, "a");
+	selectAlltree();
+	 tdao.updatetreecnt( 2 , "2");
+	selectAlltree();
 	}
+	@Test
 	public void delete() {
-		tdao.deletetree("a");
-		
+		tdao.deletetree("2");
+		selectAlltree();
 	}
 }
