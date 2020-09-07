@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import DAO.consumerdao;
 import DAO.treedao;
 import DTO.treedto;
 
 public class jtest {
 	treedao tdao =null;
-	
+	consumerdao cdao = null;
 	@Before
 	public void loading() {
 		tdao = new treedao();
+		cdao = new consumerdao();
 	}
 	@Test
 	public void selectAlltree() {
@@ -40,5 +42,9 @@ public class jtest {
 	public void delete() {
 		tdao.deletetree("2");
 		selectAlltree();
+	}
+	@Test
+	public void insercon() {
+		cdao.insertuser("a1","kim","ch");
 	}
 }

@@ -28,22 +28,27 @@ public class manager {
 		System.out.println("--물품정리--");
 		int no= -1;
 		while(true) {
-			sv.treelist();
-			System.out.println("1.물품삭제");
-			System.out.println("2.물품수정");
-			System.out.println("3.재   고 ");
-			System.out.println("4.이   전 ");
+			System.out.println("1.물품등록");
+			System.out.println("2.물품삭제");
+			System.out.println("3.물품수정");
+			System.out.println("4.재   고 ");
+			System.out.println("5.이   전 ");
 			no = in.nextInt();
 			in.nextLine();
 			
 			switch(no) {
-			case 1: deletetree(); break;
-			case 2: updatetree(); break;
-			case 3: xlist(); break;
+			case 1: insertree(); break;
+			case 2: deletetree(); break;
+			case 3: updatetree(); break;
+			case 4: xlist(); break;
 			default : break;
 			}
 			
 		}
+		
+	}
+	private void insertree() {
+		sv.instree();
 		
 	}
 	private void xlist() {

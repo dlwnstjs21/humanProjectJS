@@ -38,7 +38,7 @@ public class serviceImpl implements service {
 			addr = in.nextLine();
 			udto.setAddr(addr);
 
-			uudao.insertuser(udto);
+			uudao.insertuser(id,name,addr);
 			System.out.println("가입이 완료되었습니다.");
 
 		}
@@ -113,7 +113,7 @@ public class serviceImpl implements service {
 		System.out.println("수정할 나무 id 를 입력해주세요.");
 		treeid =in.nextLine();
 		tdto.setTid(treeid);
-		System.out.println("나무 수량을 입력해주세요");
+		System.out.println("뺄 수량을 입력해주세요");
 		tcnt =in.nextInt();
 		in.nextLine();
 		tdto.setCnt(tcnt);
@@ -147,11 +147,11 @@ public class serviceImpl implements service {
 		ArrayList<consumerdto> clist = uudao.selectAllconsumer();
 		System.out.println("회원 목록입니다.");
 		for (int i = 0; i < clist.size(); i++) {
-			consumerdto ccdto = new consumerdto();
-			ccdto = clist.get(i);
-			System.out.println(" 회원 id : " + ccdto.getUid());
-			System.out.println(" 회원 이름: " + ccdto.getUname());
-			System.out.println(" 주   소   : " + ccdto.getAddr());
+				consumerdto ccdto = new consumerdto();
+				ccdto = clist.get(i);
+				System.out.println(" 회원 id : " + ccdto.getUid());
+				System.out.println(" 회원 이름: " + ccdto.getUname());
+				System.out.println(" 주   소   : " + ccdto.getAddr());
 		}		
 	}
 
@@ -169,6 +169,34 @@ public class serviceImpl implements service {
 				System.out.println("재고가 0개인 제품이 없습니다.");
 			}
 		}
+		
+	}
+
+	@Override
+	public void instree() {
+		int cnt = -1;
+		String id = null;
+		String name = null;
+		String info = null;
+		System.out.println("---나무등록---");
+		Scanner in = new Scanner(System.in);
+			treedto tdto = new treedto();
+			System.out.println("나무 id를 입력해주세요");
+			id = in.nextLine();
+			tdto.setTid(id);
+			System.out.println("나무 이름을 입력해주세요");
+			name = in.nextLine();
+			tdto.setTname(name);
+			System.out.println("나무 정보를 입력해주세요.");
+			info = in.nextLine();
+			tdto.setInfo(info);
+			System.out.println("수량을 입력해주세요.");
+			cnt = in.nextInt();
+			in.nextLine();
+			tdto.setCnt(cnt);
+
+			ttdao.inserttree(id, name, info, cnt);
+			System.out.println("등록이  완료되었습니다.");
 		
 	}
 

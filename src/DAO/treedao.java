@@ -12,7 +12,7 @@ import DTO.treedto;
 public class treedao {
 	private Connection conn = null; // oracle 접속하기 위한 연결 컨넥션
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:olcl";
+	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String id = "system";
 	private String pwd = "1111";
 

@@ -12,7 +12,7 @@ import DTO.consumerdto;
 public class consumerdao {
 	private Connection conn = null; // oracle 접속하기 위한 연결 컨넥션
 	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:olcl";
+	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String id = "system";
 	private String pwd = "1111";
 
@@ -61,15 +61,16 @@ public class consumerdao {
 		return null;
 	}
 
-	public void insertuser(consumerdto udto) {// 회원등록
-		String sql = "insert into user values (?,?,?)";
+	public void insertuser(String id,String name,String addr) {// 회원등록
+		String sql = "insert into consumer values (?,?,?)";
 		PreparedStatement ppst = null;
-		if (conn != null) {
+		if (conn() != null) {
 			try {
 				ppst = conn.prepareStatement(sql);
-				ppst.setString(1, udto.getUid());
-				ppst.setString(2, udto.getUname());
-				ppst.setString(3, udto.getAddr());
+				ppst.setString(1, id);
+				ppst.setString(2, name);
+				ppst.setString(3, addr);
+				ppst.executeUpdate();
 			} catch (Exception e) {
 				// TODO: handle exception
 			} finally {
@@ -79,7 +80,6 @@ public class consumerdao {
 					if (conn != null)
 						conn.close();
 				} catch (Exception e2) {
-					e2.printStackTrace();
 				}
 			}
 		}
